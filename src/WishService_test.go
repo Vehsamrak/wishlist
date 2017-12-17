@@ -2,8 +2,8 @@ package src
 
 import (
     "testing"
-    "github.com/stretchr/testify/assert"
     "github.com/stretchr/testify/suite"
+    "github.com/stretchr/testify/assert"
 )
 
 func TestWishService(test *testing.T) {
@@ -19,7 +19,8 @@ func (suite *HelpWishService) SetupTest() {}
 func (suite *HelpWishService) TestGetNames_emptyParameters_stringReturned() {
     wishService := &WishService{}
 
-    result := wishService.Start()
+    _, status := wishService.Start()
+    wishService.Stop()
 
-    assert.Equal(suite.T(), result, true)
+    assert.Nil(suite.T(), status)
 }
