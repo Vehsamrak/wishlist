@@ -6,6 +6,6 @@ type WishService struct {
 
 }
 
-func (wishService *WishService) start()  {
+func (wishService *WishService) Start()  {
     fmt.Println("test")
 }

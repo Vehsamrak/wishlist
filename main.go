@@ -4,5 +4,5 @@ import "github.com/vehsamrak/wishlist/src"
 
 func main() {
     wishService := src.WishService{}
-    wishService.start()
+    wishService.Start()
 }
