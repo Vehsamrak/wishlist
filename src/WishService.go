@@ -11,7 +11,6 @@ type WishService struct{}
 func (wishService *WishService) Start() {
     router := mux.NewRouter()
     router.HandleFunc("/", wishService.IndexRouteHandler)
-    //router.HandleFunc("/articles", ArticlesHandler)
     http.Handle("/", router)
 }
 
