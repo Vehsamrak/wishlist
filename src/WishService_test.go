@@ -1,26 +1,36 @@
 package src
 
 import (
-    "testing"
-    "github.com/stretchr/testify/suite"
     "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/suite"
+    "github.com/vehsamrak/resttest"
+    "net/http"
+    "testing"
 )
 
 func TestWishService(test *testing.T) {
-    suite.Run(test, new(HelpWishService))
+    suite.Run(test, new(WishServiceTest))
 }
 
-type HelpWishService struct {
+type WishServiceTest struct {
     suite.Suite
 }
 
-func (suite *HelpWishService) SetupTest() {}
+func (suite *WishServiceTest) SetupTest() {}
 
-func (suite *HelpWishService) TestGetNames_emptyParameters_stringReturned() {
-    wishService := &WishService{}
+func (suite *WishServiceTest) TestIndexHandler_httpGetNonexistentRoute_404CodeReturned() {
+    service := &WishService{}
 
-    _, status := wishService.Start()
-    wishService.Stop()
+    response := resttest.RequestGet(service.IndexRouteHandler, "/nonexistent-route", nil)
 
-    assert.Nil(suite.T(), status)
+    assert.Equal(suite.T(), http.StatusNotFound, response.Code)
+    assert.Equal(suite.T(), "{\"error\":\"Page not found\"}", response.Body.String())
+}
+
+func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned() {
+    service := &WishService{}
+
+    response := resttest.RequestGet(service.IndexRouteHandler, "/", nil)
+
+    assert.Equal(suite.T(), http.StatusOK, response.Code)
 }

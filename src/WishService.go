@@ -1,13 +1,28 @@
 package src
 
-type WishService struct {
+import (
+    "io"
+    "net/http"
+    "github.com/gorilla/mux"
+)
 
+type WishService struct{}
+
+func (wishService *WishService) Start() {
+    router := mux.NewRouter()
+    router.HandleFunc("/", wishService.IndexRouteHandler)
+    //router.HandleFunc("/articles", ArticlesHandler)
+    http.Handle("/", router)
 }
 
-func (wishService *WishService) Start() (chan bool, error) {
-    return make(chan bool), nil
-}
+func (wishService *WishService) IndexRouteHandler(writer http.ResponseWriter, request *http.Request) {
+    writer.Header().Set("Content-Type", "application/json")
 
-func (wishService *WishService) Stop() bool {
-    return true
+    if request.URL.Path != "/" {
+        writer.WriteHeader(http.StatusNotFound)
+        io.WriteString(writer, "{\"error\":\"Page not found\"}")
+        return
+    }
+
+    writer.WriteHeader(http.StatusOK)
 }
