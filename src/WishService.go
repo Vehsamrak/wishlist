@@ -4,6 +4,7 @@ import (
     "io"
     "net/http"
     "github.com/gorilla/mux"
+    "encoding/json"
 )
 
 type WishService struct{}
@@ -22,7 +23,8 @@ func (wishService *WishService) IndexRouteHandler(writer http.ResponseWriter, re
 
     if request.URL.Path != "/" {
         writer.WriteHeader(http.StatusNotFound)
-        io.WriteString(writer, "{\"error\":\"Page not found\"}")
+        jsonResponse, _ := json.Marshal(Message{"Url not found"})
+        io.WriteString(writer, string(jsonResponse))
         return
     }
 

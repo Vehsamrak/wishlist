@@ -24,7 +24,7 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetNonexistentRoute_404CodeRe
     response := resttest.RequestGet(service.IndexRouteHandler, "/nonexistent-route", nil)
 
     assert.Equal(suite.T(), http.StatusNotFound, response.Code)
-    assert.Equal(suite.T(), "{\"error\":\"Page not found\"}", response.Body.String())
+    assert.Equal(suite.T(), "{\"message\":\"Url not found\"}", response.Body.String())
 }
 
 func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned() {
