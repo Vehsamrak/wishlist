@@ -33,4 +33,5 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned
     response := resttest.RequestGet(service.IndexRouteHandler, "/", nil)
 
     assert.Equal(suite.T(), http.StatusOK, response.Code)
+    assert.Equal(suite.T(), "{\"message\":\"Url found\"}", response.Body.String())
 }

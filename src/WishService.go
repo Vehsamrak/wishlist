@@ -29,5 +29,6 @@ func (wishService *WishService) IndexRouteHandler(writer http.ResponseWriter, re
     }
 
     writer.WriteHeader(http.StatusOK)
-    io.WriteString(writer, "{\"success\":true}")
+    jsonResponse, _ := json.Marshal(Message{"Url found"})
+    io.WriteString(writer, string(jsonResponse))
 }
