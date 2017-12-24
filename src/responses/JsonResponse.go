@@ -9,6 +9,8 @@ type JsonResponse struct {
 
 func (response JsonResponse) processResponseWriter(responseWriter http.ResponseWriter) Response {
     responseWriter.Header().Set("Content-Type", "application/json")
+
+    return response
 }
 
 func (response JsonResponse) getBody() string {
