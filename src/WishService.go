@@ -11,7 +11,7 @@ type WishService struct{}
 
 func (wishService *WishService) Start() {
     router := mux.NewRouter()
-    router.HandleFunc("/wishes/{userId}", wishService.WishesHandler)
+    router.HandleFunc("/wishes", wishService.WishesHandler)
     router.HandleFunc("/", wishService.IndexHandler)
     http.Handle("/", router)
 
@@ -37,11 +37,12 @@ func (wishService *WishService) IndexHandler(response http.ResponseWriter, reque
 
 func (wishService *WishService) WishesHandler(response http.ResponseWriter, request *http.Request) {
     response.Header().Set("Content-Type", "application/json")
-    vars := mux.Vars(request)
 
-    if len(vars["userId"]) == 0 {
-        response.WriteHeader(http.StatusNotFound)
-        jsonResponse, _ := json.Marshal(Message{"Url found"})
+    userId := request.URL.Query()["userId"]
+
+    if len(userId) < 1 {
+        response.WriteHeader(http.StatusBadRequest)
+        jsonResponse, _ := json.Marshal(Message{"Parameter \"userId\" is missing"})
         io.WriteString(response, string(jsonResponse))
         return
     }
