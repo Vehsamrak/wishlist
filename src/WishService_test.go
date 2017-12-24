@@ -25,7 +25,7 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetNonexistentRoute_404CodeRe
     response := resttest.RequestGet(service.IndexHandler, "/nonexistent-route", nil)
 
     assert.Equal(suite.T(), http.StatusNotFound, response.Code)
-    assert.Equal(suite.T(), "{\"message\":\"Url not found\"}", response.Body.String())
+    assert.Equal(suite.T(), "{\"data\":\"Url not found\"}", response.Body.String())
 }
 
 func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned() {
@@ -34,7 +34,7 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned
     response := resttest.RequestGet(service.IndexHandler, "/", nil)
 
     assert.Equal(suite.T(), http.StatusOK, response.Code)
-    assert.Equal(suite.T(), "{\"message\":\"Url found\"}", response.Body.String())
+    assert.Equal(suite.T(), "{\"data\":\"Url found\"}", response.Body.String())
 }
 
 func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithoutUserId_400() {

@@ -1,5 +1,5 @@
 package src
 
 type Message struct {
-    Message string `json:"message"`
+    Message string `json:"data"`
 }

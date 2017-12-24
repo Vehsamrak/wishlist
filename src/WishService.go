@@ -38,12 +38,18 @@ func (wishService *WishService) IndexHandler(response http.ResponseWriter, reque
 func (wishService *WishService) WishesHandler(response http.ResponseWriter, request *http.Request) {
     response.Header().Set("Content-Type", "application/json")
 
-    userId := request.URL.Query()["userId"]
+    userParameter := request.URL.Query()["userId"]
 
-    if len(userId) < 1 {
+    if len(userParameter) < 1 {
         response.WriteHeader(http.StatusBadRequest)
         jsonResponse, _ := json.Marshal(Message{"Parameter \"userId\" is missing"})
         io.WriteString(response, string(jsonResponse))
         return
     }
+
+    userId := userParameter[0]
+
+    response.WriteHeader(http.StatusOK)
+    jsonResponse, _ := json.Marshal(Message{"userId:" + userId})
+    io.WriteString(response, string(jsonResponse))
 }
