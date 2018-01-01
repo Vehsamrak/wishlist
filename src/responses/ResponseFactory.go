@@ -9,15 +9,15 @@ const (
     SUCCESS
 )
 
-func (factory ResponseFactory) create(responseWriter http.ResponseWriter, responseType uint64) Response {
+func (factory ResponseFactory) Create(responseWriter *http.ResponseWriter, responseType uint64) Response {
     var response Response
     switch responseType {
     case ERROR:
-        response = ErrorResponse{}.processResponseWriter(responseWriter)
+        response = ErrorResponse{}.ProcessResponseWriter(*responseWriter)
     case SUCCESS:
         fallthrough
     default:
-        response = SuccessResponse{}.processResponseWriter(responseWriter)
+        response = SuccessResponse{}.ProcessResponseWriter(*responseWriter)
 
     }
 

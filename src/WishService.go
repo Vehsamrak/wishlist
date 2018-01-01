@@ -19,20 +19,10 @@ func (wishService *WishService) Start() {
     server.ListenAndServe()
 }
 
-func (wishService *WishService) IndexHandler(response http.ResponseWriter, request *http.Request) {
-    response.Header().Set("Content-Type", "application/json")
-
-
-    if request.URL.Path != "/" {
-        response.WriteHeader(http.StatusNotFound)
-        jsonResponse, _ := json.Marshal(Message{"Url not found"})
-        io.WriteString(response, string(jsonResponse))
-        return
-    }
-
-    response.WriteHeader(http.StatusOK)
-    jsonResponse, _ := json.Marshal(Message{"Url found"})
-    io.WriteString(response, string(jsonResponse))
+func (wishService *WishService) IndexHandler(responseWriter http.ResponseWriter, request *http.Request) {
+    responseWriter.WriteHeader(http.StatusNotFound)
+    jsonResponse, _ := json.Marshal(Message{"Url not found"})
+    io.WriteString(responseWriter, string(jsonResponse))
 }
 
 func (wishService *WishService) WishesHandler(response http.ResponseWriter, request *http.Request) {

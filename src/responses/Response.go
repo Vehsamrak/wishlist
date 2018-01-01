@@ -3,6 +3,7 @@ package responses
 import "net/http"
 
 type Response interface {
-    processResponseWriter(responseWriter http.ResponseWriter) Response
-    getBody() string
+    ProcessResponseWriter(responseWriter http.ResponseWriter) Response
+    GetBody() string
+    GetWriter() http.ResponseWriter
 }

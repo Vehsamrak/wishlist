@@ -17,8 +17,6 @@ type WishServiceTest struct {
     suite.Suite
 }
 
-func (suite *WishServiceTest) SetupTest() {}
-
 func (suite *WishServiceTest) TestIndexHandler_httpGetNonexistentRoute_404CodeReturned() {
     service := &WishService{}
 
@@ -28,13 +26,13 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetNonexistentRoute_404CodeRe
     assert.Equal(suite.T(), "{\"data\":\"Url not found\"}", response.Body.String())
 }
 
-func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_200CodeReturned() {
+func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_404CodeReturned() {
     service := &WishService{}
 
     response := resttest.RequestGet(service.IndexHandler, "/", nil)
 
-    assert.Equal(suite.T(), http.StatusOK, response.Code)
-    assert.Equal(suite.T(), "{\"data\":\"Url found\"}", response.Body.String())
+    assert.Equal(suite.T(), http.StatusNotFound, response.Code)
+    assert.Equal(suite.T(), "{\"data\":\"Url not found\"}", response.Body.String())
 }
 
 func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithoutUserId_400() {
