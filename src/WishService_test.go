@@ -35,7 +35,7 @@ func (suite *WishServiceTest) TestIndexHandler_httpGetIndexRoute_404CodeReturned
     assert.Equal(suite.T(), "{\"data\":\"Url not found\"}", response.Body.String())
 }
 
-func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithoutUserId_400() {
+func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithoutUserId_400CodeReturned() {
     service := &WishService{}
 
     response := resttest.RequestGet(service.WishesHandler, "/wishes", nil)
@@ -43,7 +43,7 @@ func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithoutUserId_
     assert.Equal(suite.T(), http.StatusBadRequest, response.Code)
 }
 
-func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithUserId_200() {
+func (suite *WishServiceTest) TestWishesHandler_httpGetWishesRouteWithUserId_200CodeReturned() {
     service := &WishService{}
     parameters := url.Values{}
     parameters.Set("userId", "1")
